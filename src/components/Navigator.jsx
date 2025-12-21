@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom"
 import NotFound from "../pages/NotFound"
 import { useTokens } from "../stores/tokenStore"
-import Homepage from "../pages/HomePage"
+import Homepage from "../pages/Homepage"
 import Blog from "../pages/Blog"
 import Login from "../pages/Login"
 import Register from "../pages/Register"
