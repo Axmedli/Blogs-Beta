@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useState, useEffect } from "react";    
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Register = () => {
@@ -81,9 +81,9 @@ const Register = () => {
           </button>
           <p className="text-center mt-4 text-gray-600">
             Already have an account?
-            <a href="/login" className="font-medium underline">
+            <Link to="/login" className="font-medium underline">
               Login
-            </a>
+            </Link>
           </p>
         </div>
       </div>

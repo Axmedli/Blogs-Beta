@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useTokens } from "../stores/tokenStore";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -73,9 +74,9 @@ const Login = () => {
           </button>
           <p className="text-center mt-4 text-gray-600">
             Don’t have an account?{" "}
-            <a href="/register" className="font-medium underline">
+            <Link to="/register" className="font-medium underline">
               Register
-            </a>
+            </Link>
           </p>
         </div>
       </div>
