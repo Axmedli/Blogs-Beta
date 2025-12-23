@@ -4,8 +4,10 @@ import Footer from "../components/Footer";
 import { useState, useEffect } from "react";    
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDarkmode } from "../stores/darkmodeStore";
 
 const Register = () => {
+  const { isDarkmodeActive } = useDarkmode();
   const navigate = useNavigate();
   const [formData, setFormData] = useState();
 
@@ -37,10 +39,14 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div
+      className={`min-h-screen flex flex-col ${
+        isDarkmodeActive ? "bg-[#181A2A] " : "bg-white text-black"
+      }`}
+    >
       <Navbar />
       <div className="flex flex-1 justify-center items-center mb-5 mt-5">
-        <div className="flex flex-col max-w-[400px] w-full px-6 py-12 bg-white rounded-lg shadow-md">
+        <div className={`flex flex-col max-w-[400px] w-full px-6 py-12 rounded-lg shadow-md ${isDarkmodeActive ? "bg-[#141624] text-white" : "bg-white"}`}>
           <h1 className="text-3xl font-semibold mb-8 text-center">Register</h1>
           <div className="flex flex-col gap-6 mb-6">
             <input
@@ -81,7 +87,7 @@ const Register = () => {
           </button>
           <p className="text-center mt-4 text-gray-600">
             Already have an account?
-            <Link to="/login" className="font-medium underline">
+            <Link to="/login" className={`font-medium underline ${isDarkmodeActive ? "text-white" : "text-gray-600"}`}>
               Login
             </Link>
           </p>

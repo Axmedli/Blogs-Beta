@@ -4,8 +4,10 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import api from "../utils/axios";
 import NoImage from "../assets/images/NoImage.jpg";
+import { useDarkmode } from "../stores/darkmodeStore";
 
 const Blog = () => {
+  const { isDarkmodeActive } = useDarkmode();
   const { id } = useParams();
   const [blogDetails, setBlogDetails] = useState({});
 
@@ -28,7 +30,11 @@ const Blog = () => {
   }, [id]);
 
   return (
-    <div className="max-w-[1440px] mx-auto min-h-screen">
+    <div
+      className={`w-full w-full mx-auto min-h-screen ${
+        isDarkmodeActive ? "bg-[#181A2A] text-white" : "bg-white text-black"
+      }`}
+    >
       <Navbar />
       <div className="max-w-[1216px] mx-auto pt-20 px-4 md:px-24 lg:px-60 mb-[122px]">
         <h1 className="bg-[#4B6BFB] inline-block text-white py-1.5 px-3 rounded-lg">

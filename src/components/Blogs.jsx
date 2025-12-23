@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import NoImage from "../assets/images/NoImage.jpg";
+import { useDarkmode } from "../stores/darkmodeStore";
 
 const Blogs = ({ blog, type = "small" }) => {
+  const { isDarkmodeActive } = useDarkmode();
   if (type === "large") {
     return (
       <Link to={`/blog/${blog._id}`}>
@@ -33,7 +35,7 @@ const Blogs = ({ blog, type = "small" }) => {
 
   return (
     <Link to={`/blog/${blog._id}`}>
-      <div className="max-w-[392px] h-[426px] border border-gray-300 p-4 rounded-lg shadow-lg hover:shadow-xl transition hover:scale-[1.02] cursor-pointer mx-auto">
+      <div className={`max-w-[392px] h-[426px] border p-4 rounded-lg shadow-lg hover:shadow-xl transition hover:scale-[1.02] cursor-pointer mx-auto ${isDarkmodeActive ? "border-[#242535]" : "border-gray-300"}`}>
         <img
           className="w-full h-[200px] rounded-lg object-cover"
           src={blog.image === "" ? NoImage : blog.image}

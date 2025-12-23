@@ -3,9 +3,11 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import api from "../utils/axios";
 import { useTokens } from "../stores/tokenStore";
+import { useDarkmode } from "../stores/darkmodeStore";
 
 const WriteBlog = () => {
   const { accessToken } = useTokens();
+  const { isDarkmodeActive } = useDarkmode();
   const [categories, setCategories] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
@@ -69,26 +71,39 @@ const WriteBlog = () => {
   };
 
   return (
-    <div className="max-w-[1440px] mx-auto min-h-screen">
+    <div
+      className={` w-full mx-auto min-h-screen transition-transition duration-200 ${
+        isDarkmodeActive ? "bg-[#181A2A] text-white" : "bg-white text-black"
+      }`}
+    >
       <Navbar />
       <div className="max-w-[1216px] mx-auto px-4 py-10">
         <div className="max-w-[800px] mx-auto flex flex-col justify-center items-center">
           <h1 className="text-3xl font-bold mb-[54px]">Write a New Blog</h1>
 
-          <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
+          <form
+            onSubmit={handleSubmit}
+            className={`w-full flex flex-col gap-4 text-[#6D6E7680] ${
+              isDarkmodeActive ? "" : ""
+            }`}
+          >
             <input
               type="text"
               placeholder="Add title for blog"
               value={formData.title}
               onChange={(e) => handleInputChange("title", e.target.value)}
-              className="w-full h-[76px] px-4 outline-none border text-[#232536] border-[#6D6E7680]"
+              className="w-full h-[76px] px-4 outline-none border  border-[#6D6E7680]"
             />
 
             <select
               required
               value={formData.category}
               onChange={(e) => handleInputChange("category", e.target.value)}
-              className="border border-[#6D6E7680] w-full h-[76px] px-4 text-[#232536] bg-white appearance-none cursor-pointer outline-none"
+              className={`border text-[#232536] border-[#6D6E7680] w-full h-[76px] px-4  appearance-none cursor-pointer outline-none ${
+                isDarkmodeActive
+                  ? "bg-[#242535] text-white"
+                  : "bg-white text-black"
+              }`}
             >
               <option value="" disabled hidden>
                 Select category
@@ -109,7 +124,7 @@ const WriteBlog = () => {
               placeholder="Add thumbnail image"
               value={formData.thumbnail}
               onChange={(e) => handleInputChange("thumbnail", e.target.value)}
-              className="w-full h-[76px] px-4 outline-none border text-[#232536] border-[#6D6E7680]"
+              className="w-full h-[76px] px-4 outline-none border  border-[#6D6E7680]"
             />
 
             <textarea
@@ -117,7 +132,7 @@ const WriteBlog = () => {
               placeholder="Add blog body"
               value={formData.body}
               onChange={(e) => handleInputChange("body", e.target.value)}
-              className="w-full px-4 py-2 outline-none border text-[#232536] border-[#6D6E7680] resize-none"
+              className="w-full px-4 py-2 outline-none border  border-[#6D6E7680] resize-none"
             />
 
             <button

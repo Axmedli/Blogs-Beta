@@ -2,11 +2,13 @@ import Blogs from "../components/Blogs";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { useState, useEffect } from "react";
+import { useDarkmode } from "../stores/darkmodeStore";
 
 const Homepage = () => {
   const [blogs, setBlogs] = useState([]);
 
   const [limit, setLimit] = useState(10);
+  const { isDarkmodeActive } = useDarkmode();
 
   useEffect(() => {
     const getBlogs = async () => {
@@ -22,7 +24,11 @@ const Homepage = () => {
   }, [limit]);
 
   return (
-    <div className="max-w-[1440px] mx-auto min-h-screen">
+    <div
+      className={`w-full mx-auto min-h-screen transition-transition duration-200 ${
+        isDarkmodeActive ? "bg-[#181A2A] text-white" : "bg-white text-black"
+      }`}
+    >
       <Navbar />
 
       <div className="max-w-[1216px] mx-auto">
@@ -42,8 +48,13 @@ const Homepage = () => {
       <div className="flex justify-center mb-10">
         <button
           onClick={() => setLimit((prev) => prev + 3)}
-          className="text-[#696A75] py-[12px] px-[20px] rounded
-  border border-[#696A754D] transition cursor-pointer hover:bg-[#F5F5F5]"
+          className={
+            `text-[#696A75] py-[12px] px-[20px] rounded\n  border border-[#696A754D] transition cursor-pointer ${
+              isDarkmodeActive
+                ? "hover:bg-[#242535] border-[#FFFFFF4D] text-white"
+                : "hover:bg-[#F5F5F5] border-[#696A754D] text-[#696A75]"
+            }`
+          }
         >
           Load More
         </button>

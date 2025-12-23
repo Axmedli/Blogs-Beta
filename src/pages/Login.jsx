@@ -5,8 +5,10 @@ import { useTokens } from "../stores/tokenStore";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useDarkmode } from "../stores/darkmodeStore";
 
 const Login = () => {
+  const { isDarkmodeActive } = useDarkmode();
   const navigate = useNavigate();
   const { setAccessToken, setRefreshToken, setEmail } = useTokens();
   const [formData, setFormData] = useState();
@@ -43,10 +45,14 @@ const Login = () => {
   useEffect(() => {}, [formData]);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div
+      className={`min-h-screen flex flex-col ${
+        isDarkmodeActive ? "bg-[#181A2A] " : "bg-white text-black"
+      }`}
+    >
       <Navbar />
       <div className="flex flex-1 justify-center items-center mb-5 mt-5">
-        <div className="flex flex-col max-w-[400px] w-full px-6 py-12 bg-white rounded-lg shadow-md">
+        <div className={`flex flex-col max-w-[400px] w-full px-6 py-12 rounded-lg shadow-md ${isDarkmodeActive ? "bg-[#141624] text-white" : "bg-white"}`}>
           <h1 className="text-3xl font-semibold mb-8 text-center">Login</h1>
           <div className="flex flex-col gap-6 mb-6">
             <input
@@ -75,7 +81,7 @@ const Login = () => {
           </button>
           <p className="text-center mt-4 text-gray-600">
             Don’t have an account?{" "}
-            <Link to="/register" className="font-medium underline">
+            <Link to="/register" className={`font-medium underline ${isDarkmodeActive ? "text-white" : "text-gray-600"}`}>
               Register
             </Link>
           </p>
