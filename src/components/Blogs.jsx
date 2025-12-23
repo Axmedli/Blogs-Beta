@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import NoImage from "../assets/images/NoImage.jpg";
 
-
 const Blogs = ({ blog, type = "small" }) => {
   if (type === "large") {
     return (
@@ -22,9 +21,10 @@ const Blogs = ({ blog, type = "small" }) => {
               {blog.title}
             </h1>
 
-            <p className="opacity-80">
-              {blog.user.email} · {blog.createdAt}
-            </p>
+            <div className="flex gap-4">
+              <p className="opacity-80">{blog.user.email}</p>
+              <p>{new Date(blog.createdAt).toLocaleDateString()}</p>
+            </div>
           </div>
         </div>
       </Link>
@@ -33,7 +33,7 @@ const Blogs = ({ blog, type = "small" }) => {
 
   return (
     <Link to={`/blog/${blog._id}`}>
-      <div className="max-w-[392px] h-[476px] border border-gray-300 p-4 rounded-lg shadow-lg hover:shadow-xl transition hover:scale-[1.02] cursor-pointer mx-auto">
+      <div className="max-w-[392px] h-[426px] border border-gray-300 p-4 rounded-lg shadow-lg hover:shadow-xl transition hover:scale-[1.02] cursor-pointer mx-auto">
         <img
           className="w-full h-[200px] rounded-lg object-cover"
           src={blog.image === "" ? NoImage : blog.image}
@@ -43,7 +43,12 @@ const Blogs = ({ blog, type = "small" }) => {
           {blog.category}
         </h2>
         <p className="font-bold my-4 ml-[2px] line-clamp-2">{blog.title}</p>
-        <p className="text-[#696A75] mt-5 mb-8 line-clamp-2">{blog.user?.email}</p>
+        <div className="flex gap-4 mt-5">
+          <p className="text-[#696A75] line-clamp-2">{blog.user?.email}</p>
+          <p className="text-[#696A75]">
+            {new Date(blog.createdAt).toLocaleDateString()}
+          </p>
+        </div>
       </div>
     </Link>
   );

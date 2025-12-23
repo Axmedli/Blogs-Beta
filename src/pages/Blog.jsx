@@ -11,7 +11,9 @@ const Blog = () => {
 
   const getBlogDetails = async () => {
     try {
-      const {data, statusText} = await api.get(`https://ilkinibadov.com/api/b/blogs/blog/${id}`);
+      const { data, statusText } = await api.get(
+        `https://ilkinibadov.com/api/b/blogs/blog/${id}`
+      );
       if (statusText === "OK") {
         console.log(data);
         setBlogDetails(data);
@@ -33,7 +35,12 @@ const Blog = () => {
           {blogDetails.category}
         </h1>
         <p className="text-2xl font-bold mt-4">{blogDetails.title}</p>
-        <p className="text-[#696A75] mt-5 mb-8">{blogDetails.user?.email}</p>
+        <div className="flex gap-4 mt-5 mb-8">
+          <p className="text-[#696A75]">{blogDetails.user?.email}</p>
+          <p className="text-[#696A75]">
+            {new Date(blogDetails.createdAt).toLocaleDateString()}
+          </p>
+        </div>
         <img
           className="w-full h-screen max-w-[800px] max-h-[462px] object-cover rounded-lg mx-auto mb-8"
           src={blogDetails.image === "" ? NoImage : blogDetails.image}

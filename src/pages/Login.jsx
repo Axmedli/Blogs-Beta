@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setAccessToken, setRefreshToken } = useTokens();
+  const { setAccessToken, setRefreshToken, setEmail } = useTokens();
   const [formData, setFormData] = useState();
 
   const handleInputChange = (title, value) => {
@@ -32,6 +32,7 @@ const Login = () => {
         alert("Login successful ✅");
         setAccessToken(data.accessToken);
         setRefreshToken(data.refreshToken);
+        setEmail(formData.email);
         navigate("/");
       }
     } catch (error) {
