@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { useState, useEffect } from "react";    
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDarkmode } from "../stores/darkmodeStore";
@@ -9,7 +9,7 @@ import { useDarkmode } from "../stores/darkmodeStore";
 const Register = () => {
   const { isDarkmodeActive } = useDarkmode();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState({});
 
   const handleInputChange = (title, value) => {
     setFormData((prevState) => ({
@@ -20,17 +20,21 @@ const Register = () => {
 
   const registerUser = async () => {
     try {
-      const res = await axios.post("https://ilkinibadov.com/api/b/auth/register", formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const { data, statusText } = await axios.post(
+        "https://ilkinibadov.com/api/b/auth/register",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      if (res.ok) {
-        const data = await res.json();
+      if (statusText === "OK") {
         alert("Register successful ✅");
         navigate("/login");
       } else {
+        console.log(data);
         alert(data.error);
       }
     } catch (error) {
@@ -46,7 +50,11 @@ const Register = () => {
     >
       <Navbar />
       <div className="flex flex-1 justify-center items-center mb-5 mt-5">
-        <div className={`flex flex-col max-w-[400px] w-full px-6 py-12 rounded-lg shadow-md ${isDarkmodeActive ? "bg-[#141624] text-white" : "bg-white"}`}>
+        <div
+          className={`flex flex-col max-w-[400px] w-full px-6 py-12 rounded-lg shadow-md ${
+            isDarkmodeActive ? "bg-[#141624] text-white" : "bg-white"
+          }`}
+        >
           <h1 className="text-3xl font-semibold mb-8 text-center">Register</h1>
           <div className="flex flex-col gap-6 mb-6">
             <input
@@ -82,12 +90,20 @@ const Register = () => {
               type="password"
             />
           </div>
-          <button onClick={registerUser} className="bg-yellow-400 text-black py-3 rounded-md font-medium hover:bg-yellow-500 transition duration-150 cursor-pointer">
+          <button
+            onClick={registerUser}
+            className="bg-yellow-400 text-black py-3 rounded-md font-medium hover:bg-yellow-500 transition duration-150 cursor-pointer"
+          >
             Register
           </button>
           <p className="text-center mt-4 text-gray-600">
             Already have an account?
-            <Link to="/login" className={`font-medium underline ${isDarkmodeActive ? "text-white" : "text-gray-600"}`}>
+            <Link
+              to="/login"
+              className={`font-medium underline ${
+                isDarkmodeActive ? "text-white" : "text-gray-600"
+              }`}
+            >
               Login
             </Link>
           </p>
