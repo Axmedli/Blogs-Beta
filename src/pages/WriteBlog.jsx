@@ -21,7 +21,6 @@ const WriteBlog = () => {
       const { data, status } = await api.get("/blogs/categories");
       if (status === 200) {
         setCategories(data);
-        console.log(data);
       }
     } catch (error) {
       console.error("Failed to fetch categories:", error);

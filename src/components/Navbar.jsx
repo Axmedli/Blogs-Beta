@@ -1,11 +1,42 @@
 import Logo from "../assets/images/Logo.png";
 import Search from "../assets/icons/search.png";
 import Sunny from "../assets/icons/sunny.png";
+import NoImage from "../assets/images/NoImage.jpg";
 import { Link } from "react-router-dom";
 import { useDarkmode } from "../stores/darkmodeStore";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Navbar = () => {
   const { isDarkmodeActive, toggleDarkmode } = useDarkmode();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [showResults, setShowResults] = useState(false);
+
+  useEffect(() => {
+    const fetchSearchResults = async () => {
+      if (searchQuery.trim() === "") {
+        setSearchResults([]);
+        setShowResults(false);
+        return;
+      }
+
+      try {
+        const { data, statusText } = await axios.get(
+          `https://ilkinibadov.com/api/b/blogs?search=${searchQuery}`
+        );
+        if (statusText === "OK") {
+          console.log("Search Results:", data.blogs);
+          setSearchResults(data.blogs);
+          setShowResults(true);
+        }
+      } catch (error) {
+        console.error("Error fetching search results:", error);
+      }
+    };
+
+    fetchSearchResults();
+  }, [searchQuery]);
 
   return (
     <div className="max-w-[1440px] mx-auto w-full px-4 md:px-8 lg:px-20 py-6 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 transition-transition duration-200">
@@ -63,12 +94,82 @@ const Navbar = () => {
             }`}
             placeholder="Search"
             type="search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onFocus={() => searchResults.length > 0 && setShowResults(true)}
+            onBlur={() => setTimeout(() => setShowResults(false), 200)}
           />
           <img
             className="absolute right-2 top-1/2 -translate-y-1/2 w-5 h-5"
             src={Search}
             alt="Search"
           />
+          {showResults && searchResults.length > 0 && (
+            <div
+              className={`
+      absolute top-full mt-2
+      left-0 w-[190px]
+      md:left-1/2 md:-translate-x-1/2 md:w-[95vw] md:max-w-[720px]
+      max-h-[55vh] md:max-h-[420px]
+      overflow-y-auto rounded-lg md:rounded-xl
+      shadow-xl z-50 p-1 md:p-2
+      ${isDarkmodeActive ? "bg-[#1a1b26]" : "bg-white"}
+    `}
+            >
+              {searchResults.map((blog) => (
+                <Link
+                  key={blog._id}
+                  to={`/blog/${blog._id}`}
+                  onClick={() => setShowResults(false)}
+                  className="block"
+                >
+                  <div
+                    className={`
+            flex gap-2 md:gap-3
+            p-2 md:p-3
+            rounded-md md:rounded-lg
+            transition-all
+            ${
+              isDarkmodeActive
+                ? "active:bg-[#242535] md:hover:bg-[#242535]"
+                : "active:bg-gray-100 md:hover:bg-gray-100"
+            }
+          `}
+                  >
+                    <img
+                      src={blog.image === "" ? NoImage : blog.image}
+                      className="
+              w-[52px] h-[52px]
+              md:w-[72px] md:h-[72px]
+              object-cover rounded-md flex-shrink-0
+            "
+                      alt={blog.title}
+                    />
+
+                    <div className="flex flex-col gap-0.5 md:gap-1 min-w-0">
+                      <span className="text-[10px] md:text-xs text-[#4B6BFB] font-medium">
+                        {blog.category}
+                      </span>
+
+                      <p
+                        className={`
+                text-xs md:text-sm font-semibold
+                line-clamp-2 leading-snug
+                ${isDarkmodeActive ? "text-white" : "text-[#181A2A]"}
+              `}
+                      >
+                        {blog.title}
+                      </p>
+
+                      <span className="text-[10px] md:text-xs text-[#696A75] truncate">
+                        {blog.user?.email}
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
 
         <div

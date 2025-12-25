@@ -14,7 +14,6 @@ const MyBlogs = () => {
     const { data, statusText } = await api.get("/blogs/user/me");
     if (statusText === "OK") {
       setUser(data);
-      console.log(data);
     }
   };
 

@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { useState, useEffect } from "react";
 import { useDarkmode } from "../stores/darkmodeStore";
+import axios from "axios";
 
 const Homepage = () => {
   const [blogs, setBlogs] = useState([]);
@@ -12,11 +13,10 @@ const Homepage = () => {
 
   useEffect(() => {
     const getBlogs = async () => {
-      const res = await fetch(
+      const {data, statusText} = await axios.get(
         `https://ilkinibadov.com/api/b/blogs?limit=${limit}`
       );
-      const data = await res.json();
-      if (res.ok) {
+      if (statusText === "OK") {
         setBlogs(data.blogs);
       }
     };

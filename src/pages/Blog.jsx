@@ -17,7 +17,6 @@ const Blog = () => {
         `https://ilkinibadov.com/api/b/blogs/blog/${id}`
       );
       if (statusText === "OK") {
-        console.log(data);
         setBlogDetails(data);
       }
     } catch (error) {
