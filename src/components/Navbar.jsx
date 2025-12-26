@@ -50,7 +50,7 @@ const Navbar = () => {
         />
       </div>
 
-      <div className="flex flex-wrap gap-4 md:gap-5 lg:gap-10 justify-center md:justify-start">
+      <div className="max-[330px]:text-sm sm:text-base flex flex-wrap gap-4 md:gap-5 lg:gap-10 justify-center md:justify-start">
         <Link
           to="/"
           className={`hover:text-blue-500 ${
@@ -84,7 +84,7 @@ const Navbar = () => {
         </p>
       </div>
 
-      <div className="flex flex-wrap items-center gap-4 md:gap-6 mt-4 md:mt-0">
+      <div className="flex flex-wrap items-center max-[330px]:gap-2 gap-4 md:gap-3 lg:gap-6 mt-4 md:mt-0">
         <div className="relative">
           <input
             className={`w-[140px] lg:w-[166px] h-[36px] px-4 py-2 rounded-lg outline-none pr-10 ${
