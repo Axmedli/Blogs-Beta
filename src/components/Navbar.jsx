@@ -42,7 +42,7 @@ const Navbar = () => {
     <div className="max-w-[1440px] mx-auto w-full px-4 md:px-8 lg:px-20 py-6 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 transition-transition duration-200">
       <div className="flex-shrink-0">
         <img
-          className={`w-[120px] md:w-[156px] h-auto transition-transition duration-200${
+          className={`w-[120px] md:w-[100px] lg:w-[156px] h-auto transition-transition duration-200${
             isDarkmodeActive ? "filter brightness-0 invert" : ""
           }`}
           src={Logo}
@@ -50,7 +50,7 @@ const Navbar = () => {
         />
       </div>
 
-      <div className="flex flex-wrap gap-4 md:gap-10 justify-center md:justify-start">
+      <div className="flex flex-wrap gap-4 md:gap-5 lg:gap-10 justify-center md:justify-start">
         <Link
           to="/"
           className={`hover:text-blue-500 ${
@@ -87,7 +87,7 @@ const Navbar = () => {
       <div className="flex flex-wrap items-center gap-4 md:gap-6 mt-4 md:mt-0">
         <div className="relative">
           <input
-            className={`w-[140px] md:w-[166px] h-[36px] px-4 py-2 rounded-lg outline-none pr-10 ${
+            className={`w-[140px] lg:w-[166px] h-[36px] px-4 py-2 rounded-lg outline-none pr-10 ${
               isDarkmodeActive
                 ? "bg-[#242535] text-white placeholder-gray-400"
                 : "bg-[#F4F4F5] text-black"
@@ -109,7 +109,7 @@ const Navbar = () => {
               className={`
       absolute top-full mt-2
       left-0 w-[190px]
-      md:left-1/2 md:-translate-x-1/2 md:w-[95vw] md:max-w-[720px]
+      md:left-1/2 md:-translate-x-1/2 md:w-[500px] md:max-w-[520px]
       max-h-[55vh] md:max-h-[420px]
       overflow-y-auto rounded-lg md:rounded-xl
       shadow-xl z-50 p-1 md:p-2
@@ -174,7 +174,7 @@ const Navbar = () => {
 
         <div
           onClick={toggleDarkmode}
-          className={`flex items-center w-[48px] h-[28px] rounded-full cursor-pointer relative transition-colors duration-200 ${
+          className={`flex items-center w-[48px] md:w-[46px] lg:w-[48px] h-[28px] rounded-full cursor-pointer relative transition-colors duration-200 ${
             isDarkmodeActive ? "bg-[#4B6BFB]" : "bg-[#E4E4E7]"
           }`}
         >
@@ -189,7 +189,7 @@ const Navbar = () => {
 
         <Link to="/login">
           <button
-            className={`w-[68px] h-[36px] bg-[#141624] text-white rounded-[5px]
+            className={`w-[68px] md:w-[60px] lg:w-[68px] h-[36px] bg-[#141624] text-white rounded-[5px]
   transition-all duration-200 ease-out
   hover:scale-105 hover:shadow-lg hover:shadow-black/40 cursor-pointer ${
     isDarkmodeActive ? "bg-[#242535]" : "bg-[#141624]"
